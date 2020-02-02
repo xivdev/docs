@@ -2,8 +2,8 @@
 
 * [Home](README.md)
 
-## Game Data <a id="game-data-1"></a>
+## Game Data
 
-* [File Formats](game-data-1/file-formats/README.md)
-  * [sqpack](game-data-1/file-formats/sqpack.md)
+* [File Formats](game-data/file-formats/README.md)
+  * [sqpack](game-data/file-formats/sqpack.md)
 
