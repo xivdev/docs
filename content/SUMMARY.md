@@ -5,5 +5,5 @@
 ## Game Data
 
 * [File Formats](game-data/file-formats/README.md)
-  * [sqpack](game-data/file-formats/sqpack.md)
+  * [SqPack](game-data/file-formats/sqpack.md)
 

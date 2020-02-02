@@ -1,8 +1,8 @@
 ---
-description: 'Everything sqpack: indexes, dat files'
+description: 'Everything SqPack: indexes, dat files'
 ---
 
-# sqpack
+# SqPack
 
 sqpack\(s\) are formed from the following concepts, in which order 'matters':
 
@@ -58,4 +58,65 @@ Categories are just logical separations of game data. The following categories e
 | `13` | `debug` | Category missing in retail client/no files. |
 
 Every game path will start with one of the above names and it defines which index to search to find a file.
+
+### SqPack Files
+
+Indexes and regular data files are effectively SqPack files and subsequently have a common header, `SqPackHeader`. It looks like the following:
+
+{% tabs %}
+{% tab title="C++" %}
+```cpp
+enum PlatformId : uint8_t
+{
+    Win32,
+    PS3,
+    PS4
+};
+
+// https://github.com/SapphireServer/Sapphire/blob/develop/deps/datReader/SqPack.cpp#L5
+struct SqPackHeader
+{
+    char magic[0x8];
+    PlatformId platformId;
+    uint8_t padding0[3];
+    uint32_t size;
+    uint32_t version;
+    uint32_t type;
+};
+```
+{% endtab %}
+
+{% tab title="C\#" %}
+```csharp
+public enum PlatformId : byte
+{
+    Win32,
+    PS3,
+    PS4
+}
+
+// https://github.com/NotAdam/Lumina/blob/master/Lumina/Data/Structs/SqPackHeader.cs
+[StructLayout( LayoutKind.Sequential )]
+public unsafe struct SqPackHeader
+{
+    public fixed byte magic[8];
+    public PlatformId platformId;
+    public fixed byte __unknown[3];
+    public UInt32 size;
+    public UInt32 version;
+    public UInt32 type;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+Indexes \(and data\) starts at `size` so you want to seek to the value of `size` before you read anything out of the file.
+
+#### SqPack Index Data
+
+The index data is located directly after the header and depends on which variant of index file you load. The retail client only ships with `index`, however the benchmark builds will usually have `index2` files.
+
+Immediately following the `SqPackHeader` there's a `SqPackIndexHeader` \(which is only present in index files\):
+
+
 
