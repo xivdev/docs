@@ -1,0 +1,4 @@
+root: ./content/
+
+​structure:  
+    readme: home.md
