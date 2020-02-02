@@ -4,7 +4,7 @@ description: 'Everything SqPack: indexes, dat files'
 
 # SqPack
 
-sqpack\(s\) are formed from the following concepts, in which order 'matters':
+SqPack\(s\) are formed from the following concepts, in which order 'matters':
 
 1. Repositories
 2. Categories
@@ -112,11 +112,82 @@ public unsafe struct SqPackHeader
 
 Indexes \(and data\) starts at `size` so you want to seek to the value of `size` before you read anything out of the file.
 
-#### SqPack Index Data
+### Reading Index Data
 
-The index data is located directly after the header and depends on which variant of index file you load. The retail client only ships with `index`, however the benchmark builds will usually have `index2` files.
+The index data is located directly after the header and depends on which variant of index file you load. The retail client only ships with `index`, however the benchmark builds will usually have `index2` files. For now we'll just cover `index1` files.
 
 Immediately following the `SqPackHeader` there's a `SqPackIndexHeader` \(which is only present in index files\):
 
+{% tabs %}
+{% tab title="C++" %}
+```cpp
+struct SqPackIndexHeader
+{
+    uint32_t size;
+    uint32_t type;
+    uint32_t indexDataOffset;
+    uint32_t indexDataSize;
+};
+```
+{% endtab %}
 
+{% tab title="C\#" %}
+```csharp
+[StructLayout( LayoutKind.Sequential )]
+public unsafe struct SqPackIndexHeader
+{
+    public UInt32 size;
+    public UInt32 version;
+    public UInt32 indexDataOffset;
+    public UInt32 indexDataSize;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+The actual `SqPackIndexHeader` is `0x400`bytes large, but for the purposes of this, we're only interested in the first 16 bytes. From the `indexDataOffset` and `indexDataSize`, you can determine where to start reading from and how many index elements exist inside an index. `indexDataOffset` is an absolute offset to where the index data is located, and `indexDataSize` is the collective size of every `IndexHashTableEntry` that's in a file.
+
+{% tabs %}
+{% tab title="C++" %}
+```cpp
+struct IndexHashTableEntry
+{
+    uint64_t hash;
+    uint32_t unknown : 1;
+    uint32_t dataFileId : 3;
+    uint32_t offset : 28;
+};
+```
+{% endtab %}
+
+{% tab title="C\#" %}
+```csharp
+[StructLayout( LayoutKind.Sequential )]
+public struct IndexHashTableEntry
+{
+    public UInt64 hash;
+    public UInt32 data;
+
+    public byte DataFileId => (byte) ( ( data & 0b1110 ) >> 1 );
+
+    public uint Offset => (uint) ( data & ~0xF ) * 0x08;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+There's a couple notable differences between the C++ and C\# version, so we'll just explain the C++ version and the latter will make sense too.
+
+The hash is a u64 that contains two u32s: the lower bits are the filename CRC32, the higher bits are the folder CRC32. This is different in index2 files where the hash is 32 bits long and is the entire path.
+
+Generally speaking, calculating a `hash` works like this:
+
+1. Convert the path to lowercase 
+2. Find the last instance of `/` and split the string with the last `/` existing in the first group. The filename needs to have no directory separators
+3. Calculate the CRC32 of both path segments
+4. Join both CRC32s into a u64, eg. `directoryHash << 32 | filenameHash`
+
+The `dataFileId` is to identify which file \(on disk\) contains the file. Larger categories are split across multiple files \(each is capped at 2,000,000,000 bytes, or 2 GB\), so this is used to distinguish between `020000.win32.dat0` and `020000.win32.dat1` for example, where `datFileId` would be `0` and `1` respectively for files located in either dat.
+
+The `offset` is the absolute number of 8 byte aligned segments that the file is located at within a specific dat file. Simply put, you calculate this by doing `offset * 0x8`.
 
