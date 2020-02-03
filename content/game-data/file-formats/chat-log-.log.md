@@ -26,7 +26,7 @@ You can read entries like so:
 ```cpp
 void read( uint8_t* data )
 {
-    auto hdr = reintepret_cast< LogBufferHdr* >( data );
+    auto hdr = reinterpret_cast< LogBufferHdr* >( data );
     
     std::vector< LogEntry* > entries;
     auto offsetEntriesCount = hdr->fileSize - hdr->contentSize;
@@ -34,7 +34,7 @@ void read( uint8_t* data )
     for( auto i = 0; i < offsetEntriesCount; i++ )
     {
         auto offset = hdr->offsetEntries[ i ];
-        auto entry = reintepret_cast< LogEntry* >( data + offset );
+        auto entry = reinterpret_cast< LogEntry* >( data + offset );
         entries.push_back( entry );
     }
 }
