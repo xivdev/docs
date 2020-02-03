@@ -187,7 +187,7 @@ Generally speaking, calculating a `hash` works like this:
 3. Calculate the CRC32 of both path segments
 4. Join both CRC32s into a u64, eg. `directoryHash << 32 | filenameHash`
 
-The `dataFileId` is to identify which file \(on disk\) contains the file. Larger categories are split across multiple files \(each is capped at 2,000,000,000 bytes, or 2 GB\), so this is used to distinguish between `020000.win32.dat0` and `020000.win32.dat1` for example, where `datFileId` would be `0` and `1` respectively for files located in either dat.
+The `dataFileId` is to identify which file \(on disk\) contains the file. Larger categories are split across multiple files \(each is capped at 2,000,000,000 bytes, or 2 GB\), so this is used to distinguish between `020000.win32.dat0` and `020000.win32.dat1` for example, where `dataFileId` would be `0` and `1` respectively for files located in either dat.
 
 The `offset` is the absolute number of 8 byte aligned segments that the file is located at within a specific dat file. Simply put, you calculate this by doing `offset * 0x8`.
 
