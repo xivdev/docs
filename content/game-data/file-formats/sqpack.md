@@ -11,7 +11,7 @@ SqPack\(s\) are formed from the following concepts, in which order 'matters':
 3. A file index
 4. 1-n data files
 
-### Repositories
+## Repositories
 
 Repositories are essentially a collection of categories and there's not much to know here. As of writing, there's 4, one for the base game \(`ffxiv`\) and one for each expansion \(`ex1`, `ex2`, etc.\). Consider the following directory structure:
 
@@ -35,7 +35,7 @@ For example:
 
 The first two paths explicitly define their repository in their file path, and it's always the second segment - if it's omitted it defaults to the `ffxiv` repository. Category is always the first segment and must be present for a path to resolve.
 
-### Categories
+## Categories
 
 Categories are just logical separations of game data. The following categories exist:
 
@@ -59,7 +59,7 @@ Categories are just logical separations of game data. The following categories e
 
 Every game path will start with one of the above names and it defines which index to search to find a file.
 
-### SqPack Files
+## SqPack Files
 
 Indexes and regular data files are effectively SqPack files and subsequently have a common header, `SqPackHeader`. It looks like the following:
 
@@ -112,7 +112,7 @@ public unsafe struct SqPackHeader
 
 Indexes \(and data\) starts at `size` so you want to seek to the value of `size` before you read anything out of the file.
 
-### Reading Index Data
+## Reading Index Data
 
 The index data is located directly after the header and depends on which variant of index file you load. The retail client only ships with `index`, however the benchmark builds will usually have `index2` files. For now we'll just cover `index1` files.
 
@@ -189,5 +189,5 @@ Generally speaking, calculating a `hash` works like this:
 
 The `dataFileId` is to identify which file \(on disk\) contains the file. Larger categories are split across multiple files \(each is capped at 2,000,000,000 bytes, or 2 GB\), so this is used to distinguish between `020000.win32.dat0` and `020000.win32.dat1` for example, where `dataFileId` would be `0` and `1` respectively for files located in either dat.
 
-The `offset` is the absolute number of 8 byte aligned segments that the file is located at within a specific dat file. Simply put, you calculate this by doing `offset * 0x8`.
+The `offset` is the absolute number of 8 byte aligned segments that the file is located at within a specific dat file. In a given dat file, a file is located at `offset * 0x8` which gives you the absolute offset to start reading a file from.
 
