@@ -114,7 +114,7 @@ Indexes \(and data\) starts at `size` so you want to seek to the value of `size`
 
 ## Reading Index Data
 
-The index data is located directly after the header and depends on which variant of index file you load. The retail client only ships with `index`, however the benchmark builds will usually have `index2` files. For now we'll just cover `index1` files.
+The index data is located directly after the header and depends on which variant of index file you load. The retail client ships with both variants of index files \(mostly will be referred to as `index1` and `index2`\), however the benchmark builds will only have `index2` files.
 
 Immediately following the `SqPackHeader` there's a `SqPackIndexHeader` \(which is only present in index files\):
 
@@ -145,7 +145,9 @@ public unsafe struct SqPackIndexHeader
 {% endtab %}
 {% endtabs %}
 
-The actual `SqPackIndexHeader` is `0x400`bytes large, but for the purposes of this, we're only interested in the first 16 bytes. From the `indexDataOffset` and `indexDataSize`, you can determine where to start reading from and how many index elements exist inside an index. `indexDataOffset` is an absolute offset to where the index data is located, and `indexDataSize` is the collective size of every `IndexHashTableEntry` that's in a file.
+The actual `SqPackIndexHeader` is `0x400`bytes large, but for the purposes of this, we're only interested in the first 16 bytes. From the `indexDataOffset` and `indexDataSize`, you can determine where to start reading from and how many index elements exist inside an index. `indexDataOffset` is an absolute offset to where the index data is located, and `indexDataSize` is the collective size of every `IndexHashTableEntry` that's in a file. This entry is slightly different in the case of `index2` files, so we'll generally cover the two with a focus on `index1` files for now.
+
+### Index1 Files
 
 {% tabs %}
 {% tab title="C++" %}
