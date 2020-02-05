@@ -114,7 +114,7 @@ Indexes \(and data\) starts at `size` so you want to seek to the value of `size`
 
 ## Reading Index Data
 
-The index data is located directly after the header and depends on which variant of index file you load. The retail client ships with both variants of index files \(mostly will be referred to as `index1` and `index2`\), however the benchmark builds will only have `index2` files.
+The index data is located directly after the header and depends on which variant of index file you load. The retail client ships with both variants of index files, which we'll mostly refer to as `index1` and `index2` to make the difference obvious. Contrary to the retail client shipping with both index variants, benchmarks only ship with `index2` files. The reason is unknown.
 
 Immediately following the `SqPackHeader` there's a `SqPackIndexHeader` \(which is only present in index files\):
 
