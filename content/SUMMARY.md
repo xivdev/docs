@@ -6,5 +6,5 @@
 
 * [File Formats](game-data/file-formats/README.md)
   * [SqPack](game-data/file-formats/sqpack.md)
-  * [Chat Log \(.log\)](game-data/file-formats/chat-log-.log.md)
+  * [Chat Log \(.log\)](game-data/file-formats/chat-log.md)
 
