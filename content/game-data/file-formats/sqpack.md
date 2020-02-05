@@ -6,10 +6,10 @@ description: 'Everything SqPack: indexes, dat files'
 
 SqPack\(s\) are formed from the following concepts, in which order 'matters':
 
-1. Repositories
-2. Categories
-3. A file index
-4. 1-n data files
+1. [Repositories](sqpack.md#repositories)
+2. [Categories](sqpack.md#categories)
+3. [File Indexes](sqpack.md#reading-index-data)
+4. Data Files
 
 ## Repositories
 
