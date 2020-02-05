@@ -114,7 +114,7 @@ Indexes \(and data\) starts at `size` so you want to seek to the value of `size`
 
 ## Reading Index Data
 
-The index data is located directly after the header and depends on which variant of index file you load. The retail client ships with both variants of index files, which we'll mostly refer to as `index1` and `index2` to make the difference obvious. Contrary to the retail client shipping with both index variants, benchmarks only ship with `index2` files. The reason is unknown.
+The index data is located directly after the header and depends on which variant of index file you load. The retail client ships with both variants of index files, which we'll mostly refer to as `index` and `index2` to make the difference obvious. Contrary to the retail client shipping with both index variants, benchmarks only ship with `index2` files. The reason is unknown.
 
 Immediately following the `SqPackHeader` there's a `SqPackIndexHeader` \(which is only present in index files\):
 
@@ -147,7 +147,7 @@ public unsafe struct SqPackIndexHeader
 
 The actual `SqPackIndexHeader` is `0x400`bytes large, but for the purposes of this, we're only interested in the first 16 bytes. From the `indexDataOffset` and `indexDataSize`, you can determine where to start reading from and how many index elements exist inside an index. `indexDataOffset` is an absolute offset to where the index data is located, and `indexDataSize` is the collective size of every `IndexHashTableEntry` that's in a file. This entry is slightly different in the case of `index2` files, so we'll generally cover the two with a focus on `index1` files for now.
 
-### Index1 Files
+### Reading Index
 
 {% tabs %}
 {% tab title="C++" %}
@@ -180,7 +180,7 @@ public struct IndexHashTableEntry
 
 There's a couple notable differences between the C++ and C\# version, so we'll just explain the C++ version and the latter will make sense too.
 
-The hash is a u64 that contains two u32s: the lower bits are the filename CRC32, the higher bits are the folder CRC32. This is different in index2 files where the hash is 32 bits long and is the entire path.
+The hash is a u64 that contains two u32s: the lower bits are the filename CRC32, the higher bits are the folder CRC32.
 
 Generally speaking, calculating a `hash` works like this:
 
@@ -192,4 +192,39 @@ Generally speaking, calculating a `hash` works like this:
 The `dataFileId` is to identify which file \(on disk\) contains the file. Larger categories are split across multiple files \(each is capped at 2,000,000,000 bytes, or 2 GB\), so this is used to distinguish between `020000.win32.dat0` and `020000.win32.dat1` for example, where `dataFileId` would be `0` and `1` respectively for files located in either dat.
 
 The `offset` is the absolute number of 8 byte aligned segments that the file is located at within a specific dat file. In a given dat file, a file is located at `offset * 0x8` which gives you the absolute offset to start reading a file from.
+
+### Reading Index2
+
+The main difference between `index` and `index2` is that the entire path is encoded into one CRC32 hash and does not split the path by folder and filename. Outside of that, everything is identical to `index`.
+
+{% tabs %}
+{% tab title="C++" %}
+```cpp
+struct IndexHashTableEntry
+{
+    uint32_t hash;
+    uint32_t unknown : 1;
+    uint32_t dataFileId : 3;
+    uint32_t offset : 28;
+};
+```
+{% endtab %}
+
+{% tab title="C\#" %}
+```csharp
+[StructLayout( LayoutKind.Sequential )]
+public struct IndexHashTableEntry
+{
+    public UInt32 hash;
+    public UInt32 data;
+
+    public byte DataFileId => (byte) ( ( data & 0b1110 ) >> 1 );
+
+    public uint Offset => (uint) ( data & ~0xF ) * 0x08;
+}
+```
+{% endtab %}
+{% endtabs %}
+
+
 
