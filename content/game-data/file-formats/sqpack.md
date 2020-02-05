@@ -200,7 +200,7 @@ The main difference between `index` and `index2` is that the entire path is enco
 {% tabs %}
 {% tab title="C++" %}
 ```cpp
-struct IndexHashTableEntry
+struct Index2HashTableEntry
 {
     uint32_t hash;
     uint32_t unknown : 1;
@@ -213,7 +213,7 @@ struct IndexHashTableEntry
 {% tab title="C\#" %}
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
-public struct IndexHashTableEntry
+public struct Index2HashTableEntry
 {
     public UInt32 hash;
     public UInt32 data;
