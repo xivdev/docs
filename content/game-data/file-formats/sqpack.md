@@ -158,6 +158,7 @@ struct IndexHashTableEntry
     uint32_t unknown : 1;
     uint32_t dataFileId : 3;
     uint32_t offset : 28;
+    uint32_t _padding;
 };
 ```
 {% endtab %}
@@ -169,6 +170,7 @@ public struct IndexHashTableEntry
 {
     public UInt64 hash;
     public UInt32 data;
+    private UInt32 _padding;
 
     public byte DataFileId => (byte) ( ( data & 0b1110 ) >> 1 );
 
