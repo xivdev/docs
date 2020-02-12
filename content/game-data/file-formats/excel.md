@@ -372,7 +372,7 @@ The `dataSize` is the entire size of the row, including any data for subrows \(i
 
 `rowCount` is always 1 on variant 1 sheets and you can ignore that field entirely if you choose to. However, on variant 2 sheets, the `rowCount` is how many subrows belong to a row.
 
-Therefore, on variant 1 sheets, immedieatly after the row header is your row data. You can then read columns directly out of the data given a column offset that you read from the header. 
+Therefore, on variant 1 sheets, immediately after the row header is your row data. You can then read columns directly out of the data given a column offset that you read from the header. 
 
 On the other hand, variant 2 sheets, following the header is the first subrow, or subrow 0. You can calculate the offset to n subrow with the following:
 
