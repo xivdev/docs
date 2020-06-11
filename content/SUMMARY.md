@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Welcome](README.md)
+* [Community Projects](community-projects.md)
 
 ## Game Data
 
