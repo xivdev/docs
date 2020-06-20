@@ -9,6 +9,7 @@
   * [Excel](game-data/file-formats/excel.md)
   * [SqPack](game-data/file-formats/sqpack.md)
   * [Chat Log \(.log\)](game-data/file-formats/chat-log.md)
+* [ZiPatch](game-data/zipatch.md)
 
 ---
 
