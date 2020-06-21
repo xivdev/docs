@@ -7,13 +7,19 @@
 
 * [File Formats](game-data/file-formats/README.md)
   * [Excel](game-data/file-formats/excel.md)
-  * [SqPack](game-data/file-formats/sqpack.md)
 * [Character Data Files](game-data/character-data-files/README.md)
   * [Chat Log \(.log\)](game-data/character-data-files/chat-log.md)
 
+## Data Files
+
+* [ZiPatch](data-files/zipatch.md)
+* [SqPack](data-files/sqpack.md)
+
+## Game Internals
+
+* [Coordinates](game-internals/coordinates.md)
+
 ---
 
-* [ZiPatch](zipatch.md)
 * [SqexArg](sqexarg.md)
-* [Coordinates](coordinates.md)
 
