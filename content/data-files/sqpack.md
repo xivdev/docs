@@ -41,19 +41,19 @@ Categories are just logical separations of game data. The following categories e
 
 | ID | Name | Notes |
 | :--- | :--- | :--- |
-| `0` | `common` |  |
-| `1` | `bgcommon` |  |
-| `2` | `bg` |  |
-| `3` | `cut` |  |
-| `4` | `chara` |  |
-| `5` | `shader` |  |
-| `6` | `ui` |  |
-| `7` | `sound` |  |
-| `8` | `vfx` |  |
-| `9` | `ui_script` |  |
-| `A` | `exd` |  |
-| `B` | `game_script` |  |
-| `C` | `music` |  |
+| `0` | `common` | Contains basic data like fonts, vulgar words dictionary, shader input textures |
+| `1` | `bgcommon` | Contains textures, models, environments and collision that are shared between territories |
+| `2` | `bg` | Contains layouts, definitions, collision, models and textures for specific territories |
+| `3` | `cut` | Contains cutscene animations and definitions |
+| `4` | `chara` | Contains models, textures and definition files for all humans/demihumans/monsters |
+| `5` | `shader` | Contains compiled shaders |
+| `6` | `ui` | Contains UI layouts and textures |
+| `7` | `sound` | Contains sound effects |
+| `8` | `vfx` | Contains textures and VFX definition files\(AVFX\) |
+| `9` | `ui_script` | No index/dat in retail client, likely leftover from silverlight |
+| `A` | `exd` | Contains Excel [List](../game-data/file-formats/excel.md#excel-list-exl), [Header](../game-data/file-formats/excel.md#excel-header-exh) and [Data](../game-data/file-formats/excel.md#excel-data-exd) files |
+| `B` | `game_script` | Contains compiled LUA for quests, cutscenes and battles |
+| `C` | `music` | Contains BGM |
 | `12` | `sqpack_test` | Category missing in retail client/no files. |
 | `13` | `debug` | Category missing in retail client/no files. |
 
