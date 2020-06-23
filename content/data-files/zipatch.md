@@ -21,7 +21,7 @@ TODO: magic signature
 TODO
 
 ```csharp
-[StructLayout(LayoutKind.Explicit, Size = 32)]
+[StructLayout(LayoutKind.Explicit, Size = 8)]
 struct ChunkHeader
 {
     [FieldOffset(0)] UInt32BE Size;
