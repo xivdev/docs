@@ -48,6 +48,15 @@ All patch files start with
 The ZiPatch signature is followed by a contiguous array of chunks with the following structure
 
 ```csharp
+struct ChunkEntry
+{
+    ChunkHeader Header;
+    Chunk Payload; // TODO: explain this
+    UInt32BE Crc32;
+}
+```
+
+```csharp
 [StructLayout(LayoutKind.Explicit, Size = 8)]
 struct ChunkHeader
 {
@@ -64,14 +73,14 @@ This contiguous array terminates with a chunk of chunkType "EOF\_".
 
 #### FHDR
 
-todo: mention version, repo id, platform id, etc...
-
 ```csharp
 [StructLayout(LayoutKind.Explicit, Size = 256)]
 struct FhdrChunk
 {
-    [FieldOffset(3)] byte Version; // 
-    [FieldOffset(4)] char Name[4];
+    [FieldOffset(0x2)] byte Version; // ZIPATCH version (3)
+    [FieldOffset(0x4)] char Name[4];
+    // TODO...
+    [FieldOffset(0x20)] UInt32BE DepotHash; // also observable in url
 }
 ```
 
@@ -118,4 +127,6 @@ struct EofChunk
 ## Links
 
 [ZiPatch File Structure](http://ffxivclassic.fragmenterworks.com/wiki/index.php/ZiPatch_File_Structure)
+
+[https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch](https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch)
 
