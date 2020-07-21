@@ -259,7 +259,6 @@ struct EofChunk
 
 ## Links
 
-[ZiPatch File Structure](http://ffxivclassic.fragmenterworks.com/wiki/index.php/ZiPatch_File_Structure)
-
-[https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch](https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch)
+* [ZiPatch File Structure](http://ffxivclassic.fragmenterworks.com/wiki/index.php/ZiPatch_File_Structure)
+* [https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch](https://github.com/goatcorp/FFXIVQuickLauncher/tree/master/XIVLauncher.PatchInstaller/ZiPatch)
 
