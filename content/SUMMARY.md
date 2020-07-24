@@ -18,6 +18,7 @@
 ## Game Internals
 
 * [Coordinates](game-internals/coordinates.md)
+* [Animation Lock](game-internals/animation-lock.md)
 
 ---
 
