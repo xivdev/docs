@@ -13,11 +13,11 @@ description: >-
 {% embed url="https://cdn.discordapp.com/attachments/141479244067897344/736122305918402580/gcd.mp4" %}
 
 * TODO: overwrite something something clipping server ping that
-* that means playing on datacentre with high ping can incur additional time for lock. This makes double-weaving between GCDs extremely unliable when connected to inter-continent datacentre.
+* TODO: &lt;...&gt; that means playing on datacentre with high ping can incur additional time for lock. This makes double-weaving between GCDs extremely unliable when connected to inter-continent datacentre.
 
 {% embed url="https://cdn.discordapp.com/attachments/141479244067897344/736121024042500176/clip\_g.mp4" %}
 
-* TODO: &lt;stuff&gt; ...that is until  &lt;stuff&gt; at which point next cast won't consume swiftcast and go hardcast instead.
+* TODO: &lt;stuff&gt; ...that is until  &lt;stuff&gt; at which point next cast won't consume swiftcast and go hardcast instead. asdasdasdasdasdas
 
 {% embed url="https://cdn.discordapp.com/attachments/141479244067897344/736136653277757460/hardswift.mp4" %}
 
