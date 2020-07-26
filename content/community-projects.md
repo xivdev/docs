@@ -10,6 +10,21 @@ Sapphire is a server emulator for the retail client. While many things aren't im
 
 GitHub: [https://github.com/SapphireServer/Sapphire](https://github.com/SapphireServer/Sapphire)
 
+## XIVLauncher \(XL\)
+
+XL is a retail launcher replacement that also provides additional functionality to the game such as:
+
+* Auto-login
+* Fast patching
+* Launching tools like ACT when starting the game
+* Discord Rich Presence
+* Plugins
+* Integrity check for game files
+* Chat filtering
+* Chat bridge to Discord \(and notifications such as duties, retainer sales, etc.\)
+
+GitHub: [https://github.com/goatcorp/FFXIVQuickLauncher](https://github.com/goatcorp/FFXIVQuickLauncher)
+
 ## Libraries
 
 ### Lumina

@@ -17,8 +17,10 @@
 
 ## Game Internals
 
-* [Coordinates](game-internals/coordinates.md)
-* [Animation Lock](game-internals/animation-lock.md)
+* [Actions](game-internals/actions/README.md)
+  * [Animation Lock](game-internals/actions/animation-lock.md)
+* [World](game-internals/world/README.md)
+  * [Coordinate System](game-internals/world/coordinates.md)
 
 ---
 
