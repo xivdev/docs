@@ -50,3 +50,23 @@ TODO: rescue lb3
 
 TODO: it is possible to cancel oGCD 0.6s animlock by letting GCD overwrites it on high ping environment. \(something something related to hardcasting swiftcast\)
 
+```text
+TODO: better plot (image?)
+[==== slide-casting window =====>] [ ========== normal 0.5s lock window from oGCD ==============> ]
+^ finished cast on server side   ^ finished cast on client side        ^ GCD response arrives at this point due to bad ping
+                                                                         (This will overwrite 0.5s animlock to 0.1s)   
+ 
+```
+
+OR
+
+```text
+[== 0.5s lock window =>][==== client is allowed to cast GCD again ==============>]
+^ used oGCD                        ^ effect packet arrives at this point         ^ finished casting on server side
+                                     (0.6s but too late)                           (animlock is reset to 0.1s)
+```
+
+
+
+
+
