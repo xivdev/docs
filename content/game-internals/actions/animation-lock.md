@@ -46,9 +46,11 @@ While swiftcast is one of notorious offender, this property is not limited to sw
 
 ### Cancelling Animation Lock <a id="6aa269fa-bef7-411d-8bab-f1cf7381b00f"></a>
 
-TODO: rescue lb3
+TODO: Because how effect packet set animation lock, it is possible to cancel animation lock in many scenario.
 
-TODO: it is possible to cancel oGCD 0.6s animlock by letting GCD overwrites it on high ping environment. \(something something related to hardcasting swiftcast\)
+TODO: 1. rescue lb3
+
+TODO: cancel animlock by letting GCD overwrites it on high ping environment.
 
 ```text
 TODO: better plot (image?)
@@ -66,7 +68,9 @@ OR
                                      (0.6s but too late)                           (animlock is reset to 0.1s)
 ```
 
+## Trivia
 
+* While it's not _necessarily ****_tied to the animation, it is still named after its general purpose.
 
 
 
