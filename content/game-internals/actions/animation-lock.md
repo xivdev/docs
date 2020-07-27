@@ -70,7 +70,7 @@ OR
 
 ## Trivia
 
-* While it's not _necessarily ****_tied to the animation, it is still named after its general purpose.
+* While animation lock is named after its general purpose, it doesn't _necessarily_ has to be tied to the animation.
 
 
 
