@@ -32,7 +32,7 @@ Some actions like limit break, foods and duty actions may lock for different amo
 
 ### Clipping GCD <a id="79353019-839a-4db5-96b0-a5be7d0addc9"></a>
 
-Since animation lock from the server overwrites curent animation lock to new value, it is this reason why double weaving between GCDs extremely unliable when player is connected to the datacentre across continent.
+Since animation lock from the server overwrites current animation lock to new value, it is this reason why double weaving between GCDs extremely unreliable when player is connected to the data centre across a continent or on a completely different continent.
 
 {% embed url="https://cdn.discordapp.com/attachments/141479244067897344/736121024042500176/clip\_g.mp4" %}
 
