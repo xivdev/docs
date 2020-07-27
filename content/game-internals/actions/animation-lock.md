@@ -12,7 +12,7 @@ Animation lock is an internal timer that player has to wait certain amount of ti
 
 The timer is the number of seconds until the animation lock is up, stored as a float. This has an additional flaw due to how the game tracks time: lower framerates will generally result in a longer animation lock time because the timer resolution is significantly lower.
 
-Many GCDs have 0.1s animation lock. This timer is paused while casting. It is resumed after player finishes casting on client side.
+Many GCDs have 0.1s animation lock by default. This timer is paused while casting and resumed after player finishes casting on client side.
 
 {% embed url="https://cdn.discordapp.com/attachments/141479244067897344/736122305918402580/gcd.mp4" %}
 
