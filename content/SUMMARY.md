@@ -15,6 +15,11 @@
 * [ZiPatch](data-files/zipatch.md)
 * [SqPack](data-files/sqpack.md)
 
+## Network
+
+* [Packet Structure](network/packet-structure.md)
+* [Channels](network/channels.md)
+
 ## Game Internals
 
 * [Actions](game-internals/actions/README.md)
