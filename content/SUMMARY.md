@@ -5,6 +5,16 @@
 
 ## Game Data
 
+* [Visual Effects](game-data/visual-effects/README.md)
+  * [AVFX Files](game-data/visual-effects/avfx-files.md)
+  * [Global Parameters](game-data/visual-effects/global-parameters.md)
+  * [Schedulers](game-data/visual-effects/schedulers.md)
+  * [Particles](game-data/visual-effects/particles.md)
+  * [Emitters](game-data/visual-effects/emitters.md)
+  * [Timelines](game-data/visual-effects/timelines.md)
+  * [Effectors](game-data/visual-effects/effectors.md)
+  * [Binders](game-data/visual-effects/binders.md)
+  * [Object Life](game-data/visual-effects/object-life.md)
 * [File Formats](game-data/file-formats/README.md)
   * [Excel](game-data/file-formats/excel.md)
 * [Character Data Files](game-data/character-data-files/README.md)
