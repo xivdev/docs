@@ -18,11 +18,12 @@
 * [File Formats](game-data/file-formats/README.md)
   * [Excel](game-data/file-formats/excel.md)
 * [Character Data Files](game-data/character-data-files/README.md)
-  * [Chat Log \(.log\)](game-data/character-data-files/chat-log.md)
+  * [Chat Log (.log)](game-data/character-data-files/chat-log.md)
 
 ## Data Files
 
-* [ZiPatch](data-files/zipatch.md)
+* [ZiPatch](data-files/zipatch/README.md)
+  * [SQPK](data-files/zipatch/sqpk.md)
 * [SqPack](data-files/sqpack.md)
 
 ## Network
@@ -36,8 +37,9 @@
   * [Animation Lock](game-internals/actions/animation-lock.md)
 * [World](game-internals/world/README.md)
   * [Coordinate System](game-internals/world/coordinates.md)
+* [RSV](game-internals/rsv.md)
 
----
+***
 
 * [SqexArg](sqexarg.md)
-
+* [Test Page](test-page.md)
