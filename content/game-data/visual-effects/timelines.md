@@ -6,7 +6,6 @@ Items represent the creation of an emitter, while clips represent other actions,
 
 ## Clips
 
-Clips must be triggered from items using the `ClipNumber` parameter. Usually, items which trigger clips will have `EmitterIndex = -1`. 
+Clips must be triggered from items using the `ClipNumber` parameter. Usually, items which trigger clips will have `EmitterIndex = -1`.
 
 Items are also where emitters are attached to binders and effectors using `BinderIndex`, `EmitterIndex`, and `EffectorIndex`. Items which were originally used for a cutscene or background will usually have `BinderIndex = -1`, which will cause them to not be rendered on player characters, so creating a binder and setting `BinderIndex = 0` can fix this.
-

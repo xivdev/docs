@@ -37,7 +37,7 @@ struct SqpkFile
     [FieldOffset(0x0)] UInt16BE MainId;
     [FieldOffset(0x2)] UInt16BE SubId;
     [FieldOffset(0x4)] UInt32BE FileId;
-    
+
     // Expansion => (byte)(SubId >> 8);
     // DatFileName => $"{MainId:x2}{SubId:x4}.win32.dat{FileId}"
     // IndexFileName => $"{MainId:x2}{SubId:x4}.win32.index{(FileId == 0 ? string.Empty : FileId.ToString())}"
@@ -60,30 +60,30 @@ struct BlockHeader
 
 ```csharp
 struct BlockCount {
-	[FieldOffset(0x00)] UInt32BE Value;
+  [FieldOffset(0x00)] UInt32BE Value;
 
-	UInt32 InBytes => Value * 128;
+  UInt32 InBytes => Value * 128;
 }
 ```
 
 ```csharp
 struct SqpkFilePath {
-	[FieldOffset(0x00)] UInt16BE Main;
-	[FieldOffset(0x02)] UInt32BE Sub;
-	[FieldOffset(0x04)] UInt32BE File;	
+  [FieldOffset(0x00)] UInt16BE Main;
+  [FieldOffset(0x02)] UInt32BE Sub;
+  [FieldOffset(0x04)] UInt32BE File;
 }
 ```
 
 ```csharp
 struct SqpkFileRange {
-	[FieldOffset(0x00)] BlockCount Offset;
-	[FieldOffset(0x04)] BlockCount Count;
+  [FieldOffset(0x00)] BlockCount Offset;
+  [FieldOffset(0x04)] BlockCount Count;
 }
 ```
 
 ## Types
 
-#### Type A - Add Data
+### Type A - Add Data
 
 ```csharp
 [StructLayout(LayoutKind.Explicit)]
@@ -127,51 +127,52 @@ Expand Data follows the same structure as Delete Data, but the behaviour differs
 
 ```csharp
 Uint64 AlignBlockSize(UInt64 size) {
-	return (size + 0x8F) & 0xFFFFFF80;
+  return (size + 0x8F) & 0xFFFFFF80;
 }
 
 [StructLayout(Size = 0x1B)]
 struct FileHeader
 {
-	[FieldOffset(0x00)] byte Operation;
-	// padding: [u8; 2]
-	[FieldOffset(0x03)] UInt64BE Offset;
-	[FieldOffset(0x0B)] UInt64BE Size;
-	[FieldOffset(0x13)] UInt32BE FilePathSize;
-	[FieldOffset(0x17)] UInt16BE ExpansionId;
-	// padding: [u8; 2]
+  [FieldOffset(0x00)] byte Operation;
+  // padding: [u8; 2]
+  [FieldOffset(0x03)] UInt64BE Offset;
+  [FieldOffset(0x0B)] UInt64BE Size;
+  [FieldOffset(0x13)] UInt32BE FilePathSize;
+  [FieldOffset(0x17)] UInt16BE ExpansionId;
+  // padding: [u8; 2]
 }
 
 [StructLayout(Size = 0x10)]
 struct FileBlockHeader
 {
-	[FieldOffset(0x00)] UInt32LE Size;
-	// padding: [u8; 4]
-	[FieldOffset(0x08)] UInt32LE CompressedSize;
-	[FieldOffset(0x0C)] UInt32LE DecompressedSize;
+  [FieldOffset(0x00)] UInt32LE Size;
+  // padding: [u8; 4]
+  [FieldOffset(0x08)] UInt32LE CompressedSize;
+  [FieldOffset(0x0C)] UInt32LE DecompressedSize;
 
-	bool IsBlockCompressed => CompressedSize != 32000;
-	
-	long BlockSize => IsBlockCompressed switch {
-		true => CompressedSize,
-		false => DecompressedSize,
-	};
-	
-	long AlignedBlockSize => AlignBlockSize(BlockSize);
+  bool IsBlockCompressed => CompressedSize != 32000;
+
+  long BlockSize => IsBlockCompressed switch {
+    true => CompressedSize,
+    false => DecompressedSize,
+  };
+
+  long AlignedBlockSize => AlignBlockSize(BlockSize);
 }
 ```
 
-```
+```text
 FileChunk:
 +------------+==========+~~~~~~~~~~~~~~~~+
 | FileHeader | FilePath | SqpkFileBlocks |
 +------------+==========+~~~~~~~~~~~~~~~~+
+```
 
 Notes:
-- FilePath is a null terminated utf-8 string. Length of the string is designated by FileHeader.FilePathSize
-```
 
-```
+- FilePath is a null terminated utf-8 string. Length of the string is designated by FileHeader.FilePathSize
+
+```text
 SqpkFileBlocks:
 +-------------+==============+=======+-------------+==============+
 | BlkHeader#0 | BlkPayload#0 | pad#0 | BlkHeader#1 | BlkPayload#1 |
@@ -181,44 +182,45 @@ SqpkFileBlocks:
 +=======+~~~~~+-------------+==============+=======+
 | pad#1 | ... | BlkHeader#N | BlkPayload#N | pad#N |
 +=======+~~~~~+-------------+==============+=======+
-			   <------- BlockSize#N ------>
+         <------- BlockSize#N ------>
  ------>       <-------- AlignedBlockSize#N ------->
+```
 
 Notes:
+
 - If blkHeader.Compressed is true then the payload is a deflated stream.
 - If blkHeader.Compressed is false then the payload is a raw bytes stream.
 - Yes, AlignedBlockSize is very dodgy. Apparently they are rounded up to next multiple of 128 except they're not.
 - There are no good ways to determine how many blocks are actually encoded in SqpkFileBlocks.
-	- Usually the last block won't be compressed but keeping track of payload.remaining() and stop if it's all read will be more robust against a forged file.
-```
+  - Usually the last block won't be compressed but keeping track of payload.remaining() and stop if it's all read will be more robust against a forged file.
 
 ```csharp
 void ApplyChunk(FileHeader header)
 {
-	var filePath = ReadCString(header.FilePathSize);
-	var file = OpenFile(filePath);
-	
-	file.SeekTo(header.Offset);
+  var filePath = ReadCString(header.FilePathSize);
+  var file = OpenFile(filePath);
 
-	// assuming:
-	// chunkCurrent = beginning of blkHeader#0
-	// chunkEnd     = end of pad#N
-	var (chunkCurrent, chunkEnd) = GetChunkPosition();
-	while chunkCurrent < chunkEnd {
-		patchFile.SeekTo(chunkCurrent);
+  file.SeekTo(header.Offset);
 
-		var blockHeader = ReadBlockHeader();
-		var payload = ReadBlockPayload(header.BlockSize);
-		
-		var stream = blockHeader.IsCompressed switch {
-			true => new DeflateStream(payload, CompressionMode.Decompress);
-			false => payload,
-		};
+  // assuming:
+  // chunkCurrent = beginning of blkHeader#0
+  // chunkEnd     = end of pad#N
+  var (chunkCurrent, chunkEnd) = GetChunkPosition();
+  while chunkCurrent < chunkEnd {
+    patchFile.SeekTo(chunkCurrent);
 
-		stream.CopyTo(file);
+    var blockHeader = ReadBlockHeader();
+    var payload = ReadBlockPayload(header.BlockSize);
 
-		chunkCurrent += blockHeader.AlignedBlockSize;
-	}
+    var stream = blockHeader.IsCompressed switch {
+      true => new DeflateStream(payload, CompressionMode.Decompress);
+      false => payload,
+    };
+
+    stream.CopyTo(file);
+
+    chunkCurrent += blockHeader.AlignedBlockSize;
+  }
 }
 ```
 
@@ -227,26 +229,26 @@ void ApplyChunk(FileHeader header)
 ```csharp
 enum FileKind : byte
 {
-	Dat = b'D',   // id.platform.datN
-	Index = b'I', // id.platform.indexN
+  Dat = b'D',   // id.platform.datN
+  Index = b'I', // id.platform.indexN
 }
 
 enum HeaderKind : byte
 {
-	Version = b'V',
-	Data = b'D',
-	Index = b'I',
+  Version = b'V',
+  Data = b'D',
+  Index = b'I',
 }
 
 struct HeaderChunkHeader
 {
-	[FieldOffset(0x00)] FileKind FileKind;
-	[FieldOffset(0x01)] HeaderKind HeaderKind;
-	[FieldOffset(0x03)] SqpkFilePath Path;
+  [FieldOffset(0x00)] FileKind FileKind;
+  [FieldOffset(0x01)] HeaderKind HeaderKind;
+  [FieldOffset(0x03)] SqpkFilePath Path;
 }
 ```
 
-```
+```text
 +-------------------+---------------------+
 | HeaderChunkHeader | Payload: [u8; 1024] |
 +-------------------+---------------------+
@@ -257,16 +259,16 @@ struct HeaderChunkHeader
 ```csharp
 void ApplyChunk(HeaderChunkHeader header, byte payload[1024])
 {
-	var path = ResolvePath(header.Path, header.FileKind);
-	var file = OpenFile(path);
+  var path = ResolvePath(header.Path, header.FileKind);
+  var file = OpenFile(path);
 
-	var writeOffset = header.HeaderKind switch {
-		HeaderKind.Version => 0,
-		HeaderKind.Data => 1024,
-		HeaderKind.Index => 1024,
-	};
+  var writeOffset = header.HeaderKind switch {
+    HeaderKind.Version => 0,
+    HeaderKind.Data => 1024,
+    HeaderKind.Index => 1024,
+  };
 
-	file.Write(writeOffset, payload);
+  file.Write(writeOffset, payload);
 }
 ```
 
@@ -283,6 +285,6 @@ This is currently no-op.
 ```csharp
 struct TargetHeader
 {
-	// ..platform: ps3, ps4, win32...
+  // ..platform: ps3, ps4, win32...
 }
 ```

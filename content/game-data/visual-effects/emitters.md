@@ -12,4 +12,3 @@ There are several types of emitters:
 * Sphere
 * Sphere Model
 * Model \(any model, where objects can be emitted on its vertices\)
-

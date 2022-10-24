@@ -59,7 +59,7 @@ Schd:
     Trgr[]: a list of triggers, always 12 Trgr blocks
 ```
 
-#### Items and Triggers
+### Items and Triggers
 
 The way `Item` and `Trgr` blocks are organized is somewhat unintuitive. Both of them have an identical structure:
 
@@ -77,7 +77,7 @@ Item:
     bEna
     StTm
     TlNo
-    
+
 Item:
     bEna : from item #0
     StTm : from item #0
@@ -85,7 +85,7 @@ Item:
     bEna
     StTm
     TlNo
-    
+
   Item:
     bEna : from item #0
     StTm : from item #0
@@ -95,7 +95,7 @@ Item:
     TlNo : from item #1
     bEna
     StTm
-    TlNo  
+    TlNo
 ```
 
 For this reason, the easiest way to read a list of `Item` is to take the last one, and split it into 3-block chunks.
@@ -105,10 +105,10 @@ For this reason, the easiest way to read a list of `Item` is to take the last on
 ```text
 TmLn:
     ...parameters...
-    
+
     TICn: number of items
     CpCn: number of clips
-    
+
     Item[]: list of item blocks
     Clip[]: list of clip blocks
 ```
@@ -135,17 +135,17 @@ Timeline clips are different in that the data they contain is not organized into
 ```text
 Emit:
     SdNm: the path to a sound file (.sdm)
-    
+
     ...parameters....
-    
+
     PrCn: number of particles
     EmCn: number of emitters
 
     ...animation curves...
-    
+
     ItEm[]: list of emitter items
     ItPr[]: list of particles items
-    
+
     Data: depends on the emitter type
 ```
 
@@ -160,22 +160,22 @@ The Data block contains information relevant to the emitter's type \(specified i
 ```text
 ItEm:
     [ItEm data #0]
-    
+
 ItEm:
     [ItEm data #0]
     [ItEm data #1]
-    
+
 ItEm:
     [ItEm data #0]
     [ItEm data #1]
     [ItEm data #2]
-    
+
 ItPr:
     [ItEm data #0]
     [ItEm data #1]
     [ItEm data #2]
     [ItPr data #0]
-    
+
 ItPr:
     [ItEm data #0]
     [ItEm data #1]
@@ -190,19 +190,19 @@ ItPr:
 Ptcl:
 
     ...parameters...
-    
+
     UvSN: number of UV Sets
-    
+
     ...more parameters...
-    
+
     ...animation curves...
-    
+
     Smpl: Simple animations (optional)
-    
+
     UVSet[]: a list of UVSet blocks
-    
+
     Data: depends on particle type
-    
+
     TC1: texture color 1
     TC2: texture color 2 (optional)
     TC3: (optional)
@@ -235,7 +235,7 @@ The `Smpl` block contains 2 unique parameters: `Cols` and `Frms`. `Cols` is 16 b
 ```text
 Efct:
     ...parameters...
-    
+
     Data
 ```
 
@@ -248,12 +248,12 @@ As with emitters and particles, the `Data` block \([structures](https://github.c
 ```text
 Bind:
     ...parameters...
-    
+
     PrpS: Start binder properties
     Prp1: binder properties 1
     Prp2: binder properties 2
     PrpG: Goal binder properties
-    
+
     Data
 ```
 
@@ -307,7 +307,7 @@ Curves have the following structure:
 ```text
 [Curve Name]:
     ....parameters...
-    
+
     Keys
 ```
 
@@ -322,4 +322,3 @@ The name of a curve varies, but some examples are `X` ,`RGB` , `SclA` , etc. The
 4-byte float: Y
 4-byte float: Z
 ```
-
