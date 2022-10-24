@@ -17,4 +17,3 @@ What the triggers represent is not understood, but they are probably each for a 
 ## Items
 
 Items function like triggers, but will start automatically without any additional input. If you are having trouble viewing a VFX, such as one which was originally used for a cutscene, it can often be useful to disable all the triggers, and instead exclusively use items to start timelines.
-

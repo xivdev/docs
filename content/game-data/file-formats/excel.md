@@ -30,12 +30,12 @@ content/DeepDungeon2Gacha,-1
 
 From these entries, you can build something like the following:
 
-| ID | Relative Path/Sheet Name | Header Path |
-| :--- | :--- | :--- |
-| 209 | `Achievement` | `exd/achievement.exh` |
-| 4 | `Action` | `exd/action.exh` |
-|  | `content/DeepDungeon2Achievement` | `exd/content/deepdungeon2achievement.exh` |
-|  | `content/DeepDungeon2Gacha` | `exd/content/deepdungeon2gacha.exh` |
+| ID   | Relative Path/Sheet Name          | Header Path                               |
+| :--- | :---                              | :---                                      |
+| 209  | `Achievement`                     | `exd/achievement.exh`                     |
+| 4    | `Action`                          | `exd/action.exh`                          |
+|      | `content/DeepDungeon2Achievement` | `exd/content/deepdungeon2achievement.exh` |
+|      | `content/DeepDungeon2Gacha`       | `exd/content/deepdungeon2gacha.exh`       |
 
 From here, the only thing you can do is parse headers as you will not be able to accurately figure out data paths without first reading the header due to language and row segmentation.
 
@@ -53,6 +53,7 @@ For example, in C\#, `BitConverter.IsLittleEndian` will return whether or not a 
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExhHeader
 {
@@ -70,9 +71,11 @@ struct ExhHeader
   uint32_t u4[2];
 };
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
 public unsafe struct ExcelHeaderHeader
@@ -92,6 +95,7 @@ public unsafe struct ExcelHeaderHeader
     private fixed uint U4[2];
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -121,7 +125,7 @@ enum ExcelColumnDataType : uint16_t
     Float32 = 0x9,
     Int64 = 0xA,
     UInt64 = 0xB,
-    
+
     // 0 is read like data & 1, 1 is like data & 2, 2 = data & 4, etc...
     PackedBool0 = 0x19,
     PackedBool1 = 0x1A,
@@ -136,6 +140,7 @@ enum ExcelColumnDataType : uint16_t
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExcelColumnDefinition
 {
@@ -143,9 +148,11 @@ struct ExcelColumnDefinition
     uint16_t offset;
 };
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
 public struct ExcelColumnDefinition
@@ -154,6 +161,7 @@ public struct ExcelColumnDefinition
     public ushort Offset;
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -167,6 +175,7 @@ public struct ExcelColumnDefinition
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExcelDataPagination
 {
@@ -174,9 +183,11 @@ struct ExcelDataPagination
     uint32_t rowCount;
 }
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
 public struct ExcelDataPagination
@@ -185,6 +196,7 @@ public struct ExcelDataPagination
     public uint RowCount;
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -224,7 +236,7 @@ You can read out the languages as is.
 ```cpp
 enum ExcelVariant : uint8_t
 {
-    Unknown, 
+    Unknown,
     Default,
     SubRows
 }
@@ -260,12 +272,12 @@ exd/<name>_<page.startId>_<languageCode>.exd
 
 This should be relatively obvious, but here's a few examples:
 
-| Name | Page Start ID | Language | Path |
-| :--- | :--- | :--- | :--- |
-| Item | 0 | English \(en\) | `exd/item_0_en.exd` |
-| Item | 10000 | Japanese \(ja\) | `exd/item_10000_ja.exd` |
-| Mount | 0 | French \(fr\) | `exd/mount_0_fr.exd` |
-| Quest | 65536 | German \(de\) | `exd/quest_65536_de.exd` |
+| Name  | Page Start ID | Language        | Path                     |
+| :---  | :---          | :---            | :---                     |
+| Item  | 0             | English \(en\)  | `exd/item_0_en.exd`      |
+| Item  | 10000         | Japanese \(ja\) | `exd/item_10000_ja.exd`  |
+| Mount | 0             | French \(fr\)   | `exd/mount_0_fr.exd`     |
+| Quest | 65536         | German \(de\)   | `exd/quest_65536_de.exd` |
 
 The above also applies for quest sheets and so on which exist in subfolders.
 
@@ -279,6 +291,7 @@ Similarly to [Excel Headers](excel.md#excel-header-exh), excel data files are en
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExcelDataHeader
 {
@@ -289,9 +302,11 @@ struct ExcelDataHeader
   uint32_t unknown2[5];
 };
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
 public unsafe struct ExcelDataHeader
@@ -303,6 +318,7 @@ public unsafe struct ExcelDataHeader
     private fixed UInt16 U2[10];
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -316,6 +332,7 @@ Immediately following the `ExcelDataHeader`, the root row offsets are stored. Th
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExcelDataOffset
 {
@@ -323,9 +340,11 @@ struct ExcelDataOffset
     uint32_t offset;
 };
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout( LayoutKind.Sequential )]
 public struct ExcelDataOffset
@@ -334,12 +353,13 @@ public struct ExcelDataOffset
     public UInt32 Offset;
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
 `rowId` is the absolute row id, so a simple way to map these in whatever you're doing is to convert the list of data offsets in this file to a key value map, where the key is the `rowId` and the value is the `offset`. Then you can directly index `rowId`s on any given data page.
 
-`offset` is the absolute offset to where the data is located in the file. It can be used as is. 
+`offset` is the absolute offset to where the data is located in the file. It can be used as is.
 
 ### Row Header
 
@@ -347,6 +367,7 @@ Once you seek to a row offset by following the offset list after the header, the
 
 {% tabs %}
 {% tab title="C++" %}
+
 ```cpp
 struct ExcelDataRowHeader
 {
@@ -354,9 +375,11 @@ struct ExcelDataRowHeader
     uint16_t rowCount;
 };
 ```
+
 {% endtab %}
 
 {% tab title="C\#" %}
+
 ```csharp
 [StructLayout(LayoutKind.Sequential)]
 public struct ExcelDataRowHeader
@@ -365,6 +388,7 @@ public struct ExcelDataRowHeader
     public ushort RowCount;
 }
 ```
+
 {% endtab %}
 {% endtabs %}
 
@@ -372,7 +396,7 @@ The `dataSize` is the entire size of the row, including any data for subrows \(i
 
 `rowCount` is always 1 on variant 1 sheets and you can ignore that field entirely if you choose to. However, on variant 2 sheets, the `rowCount` is how many subrows belong to a row.
 
-Therefore, on variant 1 sheets, immediately after the row header is your row data. You can then read columns directly out of the data given a column offset that you read from the header. 
+Therefore, on variant 1 sheets, immediately after the row header is your row data. You can then read columns directly out of the data given a column offset that you read from the header.
 
 On the other hand, variant 2 sheets, following the header is the first subrow, or subrow 0. You can calculate the offset to n subrow with the following:
 
@@ -408,7 +432,7 @@ enum ExcelColumnDataType : uint16_t
     Float32 = 0x9,
     Int64 = 0xA,
     UInt64 = 0xB,
-    
+
     // 0 is read like data & 1, 1 is like data & 2, 2 = data & 4, etc...
     PackedBool0 = 0x19,
     PackedBool1 = 0x1A,
@@ -449,4 +473,3 @@ Alternatively, you can handle each one indivdually, but it's better to be lazy a
 #### Everything Else
 
 Read and use it as is. It just works™ - no magic required. Just make sure the endianness is correct.
-

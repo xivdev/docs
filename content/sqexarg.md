@@ -33,4 +33,3 @@ char GetChecksum(uint key) {
     return ChecksumTable[value >> 16];
 }
 ```
-

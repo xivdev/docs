@@ -9,4 +9,3 @@ There are several types of effectors:
 * Radial Blur
 * Black hole
 * Camera quake \(if you've ever been annoyed by the screen shake from Holy, this is why\)
-

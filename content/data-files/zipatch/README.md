@@ -16,7 +16,7 @@ A patch file name generally starts with either H or D, for HIST and DIFF, respec
 
 Patch files follow the following naming convention:
 
-```
+```text
 <D|H><YEAR>.<MONTH>.<DAY>.<PART>.<REVISION>.patch
 ```
 
@@ -24,7 +24,7 @@ Where `D|H` indicates that a patch is a delta patch or a history patch respectiv
 
 Some example patch names are as follows:
 
-```
+```text
 H2017.06.06.0000.0001a.patch
 H2017.06.06.0000.0001b.patch
 D2017.07.11.0000.0001.patch
@@ -37,11 +37,7 @@ D2019.04.16.0000.0000.patch
 
 ## File Signature
 
-All patch files start with
-
-```
-91 5A 49 50 41 54 43 48 0D 0A 1A 0A
-```
+All patch files start with `91 5A 49 50 41 54 43 48 0D 0A 1A 0A`.
 
 ## Chunks
 
@@ -99,7 +95,7 @@ struct AplyChunk
     // Believed to be length (in bytes) of Value, but it doesn't currently change
     [FieldOffset(0x4)] UInt32BE Reserved;
     // Non-zero Value sets Option to true for this .patch file
-    [FieldOffset(0x8)] UInt32BE Value; 
+    [FieldOffset(0x8)] UInt32BE Value;
 }
 ```
 
