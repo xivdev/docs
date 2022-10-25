@@ -30,6 +30,7 @@
 
 * [Packet Structure](network/packet-structure.md)
 * [Channels](network/channels.md)
+* [Ping](network/ping.md)
 
 ## Game Internals
 
