@@ -38,6 +38,7 @@
   * [Animation Lock](game-internals/actions/animation-lock.md)
 * [World](game-internals/world/README.md)
   * [Coordinate System](game-internals/world/coordinates.md)
+  * [Weather](game-internals/world/weather.md)
 * [RSV](game-internals/rsv.md)
 * [RSF](game-internals/rsf.md)
 
