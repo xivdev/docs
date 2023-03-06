@@ -33,6 +33,8 @@ When those three above combined, it can greatly deter game-play experience in ce
 
 Since animation lock from the server overwrites curent animation lock to new value, it is this reason why double weaving between GCDs extremely unliable when player is connected to the datacentre across continent.
 
+{% embed url="https://vault01.minoost.com/media/836da203-5984-4b36-8ff1-4b7f417185eb/9b3756fd-92bf-455d-a8ae-56ef796969e0.mp4" %}
+
 ### Hardcasting Swiftcast
 
 * If the client fail to receive response during initial animation lock, client is allowed to use next action. TODO.
