@@ -18,7 +18,9 @@
 * [File Formats](game-data/file-formats/README.md)
   * [Excel](game-data/file-formats/excel.md)
 * [Character Data Files](game-data/character-data-files/README.md)
-  * [Chat Log (.log)](game-data/character-data-files/chat-log.md)
+  * [Character Creator Preset](game-data/character-data-files/ffxiv_chara_xx.md)
+  * [Character data folder](game-data/character-data-files/ffxiv_chr_folder.md)
+    * [Chat Log (.log)](game-data/character-data-files/chat-log.md)
 
 ## Data Files
 
