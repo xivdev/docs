@@ -19,7 +19,7 @@ Following is a list of the data files found in this folder.
 - ITEMFDR.DAT: Item search index, used when searching for similar items. Binary format.
 - ITEMODR.DAT: This contains Inventory and Retainer item sort positions. Binary format.
 - KEYBIND.DAT: This contains your Keybinds. Binary format.
-- LOGFLTR.DAT:	This contains your Chat log filters. Binairy format.
+- LOGFLTR.DAT:	This contains your Chat log filters. Binary format.
 - MACRO.DAT: This is your Macros. Binary format.
 - UISAVE.DAT: This contains timers such as the retainer venture timer, possibly other stuff. Binary format.
 - ["log" folder](character-data-folder/chat-log.md) : The game writes your chat history to disk each time its internal buffer overflows, which potentially allows you to retrieve chat history in longer play sessions.
