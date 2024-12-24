@@ -20,7 +20,7 @@
 * [Character Data Files](game-data/character-data-files/README.md)
   * [Character Creator Preset](game-data/character-data-files/ffxiv_chara_xx.md)
   * [Character data folder](game-data/character-data-files/ffxiv_chr_folder.md)
-    * [Chat Log (.log)](game-data/character-data-files/chat-log.md)
+    * [Chat Log (.log)](game-data/character-data-files/ffxiv_chr_folder/chat-log-.log.md)
 
 ## Data Files
 
